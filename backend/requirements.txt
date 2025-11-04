@@ -1,0 +1,38 @@
+# FastAPI and Web Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+websockets==12.0
+
+# CORS
+fastapi-cors==0.0.6
+
+# Data Processing
+pandas==2.1.3
+numpy==1.26.2
+openpyxl==3.1.2
+
+# Database
+sqlalchemy==2.0.23
+databases==0.8.0
+
+# Database Drivers (Choose one based on your DB)
+psycopg2-binary==2.9.9  # PostgreSQL
+# pymysql==1.1.0        # MySQL (uncomment if using MySQL)
+# pyodbc==5.0.1         # SQL Server (uncomment if using SQL Server)
+
+# Authentication
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-dotenv==1.0.0
+
+# Validation
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Date and Time
+python-dateutil==2.8.2
+
+# Testing
+pytest==7.4.3
+httpx==0.25.2

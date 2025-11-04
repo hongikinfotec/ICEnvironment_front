@@ -1,0 +1,171 @@
+.data-table-container {
+  background-color: var(--bg-white);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.data-table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: collapse;
+  background-color: var(--bg-white);
+}
+
+.data-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.data-table th {
+  background-color: var(--bg-dark);
+  color: var(--text-white);
+  padding: clamp(6px, 0.8vw, 10px) clamp(12px, 1.5vw, 20px);
+  font-weight: 600;
+  font-size: clamp(11px, 0.9vw, 14px);
+  text-transform: none;
+  letter-spacing: 0;
+  white-space: nowrap;
+  border-bottom: 2px solid var(--primary-color);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.data-table th:last-child {
+  border-right: none;
+}
+
+/* 그룹 헤더 스타일 */
+.data-table th.group-header {
+  background-color: var(--primary-color);
+  font-weight: 700;
+  font-size: clamp(12px, 1vw, 15px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 하위 헤더 스타일 */
+.data-table th.sub-header {
+  background-color: var(--bg-dark);
+  font-weight: 500;
+  font-size: clamp(11px, 0.9vw, 14px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.data-table td {
+  padding: clamp(6px, 0.8vw, 10px) clamp(12px, 1.5vw, 20px);
+  border-bottom: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  font-size: clamp(11px, 0.9vw, 14px);
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.data-table td:last-child {
+  border-right: none;
+}
+
+.data-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.data-table tbody tr:hover {
+  background-color: var(--bg-main);
+}
+
+.data-table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.data-table tbody tr:nth-child(even):hover {
+  background-color: var(--bg-main);
+}
+
+.no-data {
+  text-align: center !important;
+  padding: clamp(16px, 2vw, 24px) !important;
+  color: var(--text-secondary);
+  font-style: italic;
+  font-size: clamp(11px, 0.9vw, 14px);
+}
+
+/* 셀 상태 표시 */
+.data-table td.cell-normal {
+  color: var(--status-normal) !important;
+  font-weight: 600;
+}
+
+.data-table td.cell-abnormal {
+  color: var(--status-danger) !important;
+  font-weight: 700;
+}
+
+/* 페이지네이션 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(4px, 0.5vw, 8px);
+  padding: clamp(12px, 1.5vw, 20px);
+  background-color: var(--bg-white);
+  border-top: 1px solid var(--border-color);
+}
+
+.pagination-btn {
+  min-width: clamp(32px, 2.5vw, 36px);
+  height: clamp(32px, 2.5vw, 36px);
+  padding: clamp(4px, 0.5vw, 8px) clamp(6px, 0.8vw, 12px);
+  background-color: var(--bg-white);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: clamp(11px, 0.9vw, 14px);
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: var(--bg-main);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.pagination-btn.active {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--text-white);
+  font-weight: 600;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .table-wrapper {
+    max-height: 400px;
+  }
+
+  .data-table {
+    min-width: 600px;
+    font-size: var(--font-xs);
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 6px 12px;
+  }
+
+  .pagination-btn {
+    min-width: 32px;
+    height: 32px;
+    font-size: var(--font-xs);
+  }
+}

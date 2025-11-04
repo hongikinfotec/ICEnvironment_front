@@ -1,0 +1,292 @@
+.search-filter {
+  background-color: var(--bg-white);
+  border-radius: 8px;
+  padding: clamp(12px, 1.5vw, 24px);
+  box-shadow: var(--shadow-md);
+}
+
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.2vw, 16px);
+}
+
+.filter-title {
+  font-size: clamp(14px, 1.2vw, 18px);
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin: 0;
+  padding-bottom: clamp(8px, 1vw, 12px);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+/* 필터 행 레이아웃 */
+.filter-row {
+  display: flex;
+  gap: clamp(10px, 1.2vw, 16px);
+  align-items: flex-end;
+}
+
+/* 첫 번째 줄: 일반 필터 + 조회 버튼 */
+.filter-row-with-button {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(10px, 1.2vw, 16px);
+  align-items: flex-end;
+}
+
+.filter-row-items {
+  display: contents;
+}
+
+/* 두 번째 줄: 조회단위 + 기간 필터 */
+.filter-row-main {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(10px, 1.2vw, 16px);
+  align-items: flex-end;
+}
+
+/* 인라인 라디오 필터 (조회단위) */
+.filter-item-inline {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 0.8vw, 8px);
+  flex: 2;
+  min-width: clamp(200px, 16vw, 240px);
+}
+
+/* 라벨 + 설명 */
+.filter-label-with-description {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1vw, 10px);
+  flex-wrap: wrap;
+}
+
+/* 조회 단위 설명 (빨간색) */
+.filter-description {
+  font-size: clamp(10px, 0.85vw, 12px);
+  font-weight: 600;
+  color: #ef4444;
+  white-space: nowrap;
+}
+
+/* 라디오 그룹 가로 배치 */
+.filter-radio-group-inline {
+  display: flex;
+  gap: clamp(10px, 1.2vw, 16px);
+  align-items: center;
+  background-color: #f9fafb;
+  padding: clamp(9px, 1.1vw, 11px) clamp(8px, 1vw, 12px);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  height: clamp(38px, 3.4vw, 42px);
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 0.8vw, 8px);
+  min-width: clamp(100px, 8vw, 120px);
+  flex: 1;
+}
+
+.filter-label {
+  font-size: clamp(11px, 0.9vw, 14px);
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.filter-radio-label {
+  display: flex;
+  align-items: center;
+  gap: clamp(5px, 0.6vw, 6px);
+  font-size: clamp(11px, 0.9vw, 14px);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.filter-radio-label input[type="radio"] {
+  width: clamp(14px, 1.2vw, 16px);
+  height: clamp(14px, 1.2vw, 16px);
+  cursor: pointer;
+  accent-color: var(--primary-color);
+}
+
+.filter-radio-label span {
+  user-select: none;
+}
+
+.filter-input,
+.filter-select {
+  padding: clamp(9px, 1.1vw, 11px) clamp(10px, 1.2vw, 14px);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: clamp(12px, 1vw, 14px);
+  color: var(--text-primary);
+  background-color: var(--bg-white);
+  transition: all 0.2s ease;
+  height: clamp(38px, 3.4vw, 42px);
+  line-height: 1.5;
+  vertical-align: middle;
+}
+
+.filter-input:focus,
+.filter-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+  outline: none;
+}
+
+.filter-input:hover,
+.filter-select:hover {
+  border-color: var(--primary-light);
+}
+
+.filter-actions {
+  display: flex;
+  justify-content: center;
+  gap: clamp(8px, 1vw, 12px);
+  padding-top: clamp(10px, 1.2vw, 16px);
+  margin-top: clamp(3px, 0.4vw, 4px);
+}
+
+.filter-actions-inline {
+  display: flex;
+  align-items: flex-end;
+  flex-shrink: 0;
+  grid-column: 5;
+  justify-self: end;
+}
+
+.btn {
+  padding: clamp(9px, 1.1vw, 11px) clamp(24px, 2.5vw, 40px);
+  border: none;
+  border-radius: 6px;
+  font-size: clamp(12px, 1vw, 15px);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(6px, 0.8vw, 8px);
+  min-width: clamp(100px, 10vw, 120px);
+  height: clamp(38px, 3.4vw, 42px);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--text-white);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-success {
+  background-color: #10b981;
+  color: var(--text-white);
+}
+
+.btn-success:hover {
+  background-color: #059669;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-success:active {
+  transform: translateY(0);
+}
+
+/* 반응형 */
+@media (max-width: 1280px) {
+  .filter-row-main {
+    flex-wrap: wrap;
+  }
+
+  .filter-item-inline {
+    min-width: 240px;
+  }
+
+  .filter-item {
+    min-width: 100px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .filter-row-with-button {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-row-items {
+    flex-wrap: wrap;
+  }
+
+  .filter-actions-inline {
+    justify-content: center;
+    padding-top: 0.5rem;
+  }
+
+  .filter-row-main {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-filter {
+    padding: 1rem;
+  }
+
+  .filter-row-with-button {
+    flex-direction: column;
+  }
+
+  .filter-row-items {
+    flex-direction: column;
+  }
+
+  .filter-row-main {
+    flex-direction: column;
+  }
+
+  .filter-item-inline {
+    min-width: auto;
+  }
+
+  .filter-item {
+    min-width: auto;
+  }
+
+  .filter-radio-group-inline {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    height: auto;
+    padding: 0.75rem;
+  }
+
+  .filter-actions {
+    flex-direction: column;
+  }
+
+  .filter-actions-inline {
+    justify-content: stretch;
+  }
+
+  .btn {
+    width: 100%;
+    height: 38px;
+  }
+}

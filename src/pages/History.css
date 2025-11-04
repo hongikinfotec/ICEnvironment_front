@@ -1,0 +1,58 @@
+.history-page {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.2vw, 16px);
+  min-height: 100%;
+  padding: clamp(6px, 0.8vw, 12px);
+}
+
+/* 테이블 액션 버튼 영역 */
+.table-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: clamp(6px, 0.8vw, 12px);
+  padding-top: clamp(6px, 0.8vw, 12px);
+  padding-bottom: clamp(6px, 0.8vw, 12px);
+}
+
+.table-actions .btn {
+  padding: clamp(6px, 0.8vw, 12px) clamp(12px, 1.5vw, 20px);
+  font-size: clamp(11px, 0.9vw, 14px);
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.table-actions .btn-success {
+  background-color: #10b981;
+  color: var(--text-white);
+}
+
+.table-actions .btn-success:hover {
+  background-color: #059669;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* 알림 결과 셀 색상 */
+.history-page .data-table td.cell-normal {
+  color: var(--status-normal) !important;
+  font-weight: 600;
+}
+
+.history-page .data-table td.cell-abnormal {
+  color: var(--status-danger) !important;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .history-page {
+    gap: var(--spacing-md);
+  }
+
+  .table-actions {
+    padding: var(--spacing-sm) 0;
+  }
+}

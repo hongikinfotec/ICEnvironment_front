@@ -1,0 +1,137 @@
+===============================================
+  백엔드 파일 목록 (FastAPI)
+===============================================
+작성일: 2025-11-03
+
+-----------------------------------------------
+[메인 파일]
+-----------------------------------------------
+backend/
+  ├─ run.py                      서버 시작 스크립트
+  ├─ start.bat                   Windows 실행 배치 파일
+  ├─ requirements.txt            Python 패키지 목록
+  ├─ test_api.py                 API 테스트 스크립트
+  └─ README.md                   백엔드 문서
+
+
+-----------------------------------------------
+[app/ - 메인 애플리케이션]
+-----------------------------------------------
+backend/app/
+  ├─ __init__.py                 패키지 초기화
+  ├─ main.py                     FastAPI 메인 (라우터 등록, WebSocket)
+  └─ config.py                   설정 파일 (DB URL, CORS 등)
+
+
+-----------------------------------------------
+[routers/ - API 엔드포인트]
+-----------------------------------------------
+backend/app/routers/
+  ├─ __init__.py
+  ├─ monitoring.py               실시간 모니터링 API
+  │                              - GET /api/monitoring/process-status
+  │                              - GET /api/monitoring/zone-data
+  │                              - GET /api/monitoring/tms
+  │                              - GET /api/monitoring/alerts
+  │
+  ├─ prediction.py               AI 예측 API
+  │                              - GET /api/prediction/forecast
+  │                              - GET /api/prediction/forecast/1hour
+  │
+  ├─ history.py                  이력 조회 API
+  │                              - POST /api/history/sensor-data
+  │                              - POST /api/history/predictions
+  │                              - POST /api/history/alarms/process
+  │                              - POST /api/history/alarms/prediction
+  │
+  ├─ export.py                   Excel 다운로드 API
+  │                              - POST /api/export/sensor-data
+  │                              - POST /api/export/predictions
+  │                              - POST /api/export/alarms
+  │
+  └─ settings.py                 환경설정 API
+                                 - GET /api/settings/thresholds
+                                 - PUT /api/settings/thresholds
+
+
+-----------------------------------------------
+[models/ - 데이터 모델]
+-----------------------------------------------
+backend/app/models/
+  ├─ __init__.py
+  └─ schemas.py                  Pydantic 데이터 모델 (341줄)
+                                 - ProcessData
+                                 - ZoneData
+                                 - TMSResponse
+                                 - PredictionResponse
+                                 - SensorDataRequest
+                                 - PredictionHistoryRequest
+                                 - AlarmProcessRequest
+                                 - AlarmPredictionRequest
+                                 - ExportRequest
+                                 - ThresholdSettings
+
+
+-----------------------------------------------
+[services/ - 비즈니스 로직]
+-----------------------------------------------
+backend/app/services/
+  ├─ __init__.py
+  └─ data_generator.py           Mock 데이터 생성기 (493줄)
+                                 ※ 현재는 임시 데이터, 향후 DB 연동 필요
+
+
+-----------------------------------------------
+[websocket/ - 실시간 통신]
+-----------------------------------------------
+backend/app/websocket/
+  ├─ __init__.py
+  └─ connection.py               WebSocket 연결 관리
+                                 - ws://localhost:8000/ws/monitoring
+
+
+-----------------------------------------------
+[dist/ - 프론트엔드 빌드 파일]
+-----------------------------------------------
+backend/dist/                    프로덕션 모드 시 사용
+  ├─ index.html
+  ├─ logo.png
+  └─ assets/
+      ├─ index-ByvpZ5h9.css
+      └─ index-Cuoq-OAV.js
+
+
+-----------------------------------------------
+[주요 기술 스택]
+-----------------------------------------------
+- FastAPI 0.104.1             웹 프레임워크
+- Uvicorn 0.24.0              ASGI 서버
+- Pydantic 2.5.0              데이터 검증
+- Pandas 2.1.3                데이터 처리, Excel 생성
+- SQLAlchemy 2.0.23           ORM (향후 DB 연동용)
+- psycopg2-binary 2.9.9       PostgreSQL 드라이버
+- WebSockets 12.0             실시간 통신
+
+
+-----------------------------------------------
+[서버 실행 방법]
+-----------------------------------------------
+# 개발 모드
+cd backend
+python -m uvicorn app.main:app --reload --port 8000
+
+# API 문서 확인
+http://localhost:8000/api/docs
+
+
+-----------------------------------------------
+[핵심 파일 (자주 수정)]
+-----------------------------------------------
+★★★ app/main.py              - 서버 설정, 라우터 등록
+★★★ app/routers/export.py    - Excel 다운로드 로직
+★★★ app/services/data_generator.py - 데이터 생성 (DB 연동 시 교체)
+★★  app/models/schemas.py    - API 요청/응답 모델
+★★  app/config.py            - 환경 설정
+
+
+===============================================
