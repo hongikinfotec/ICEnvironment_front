@@ -380,7 +380,7 @@ function Monitoring() {
     prevAbnormalStatesRef.current = currentAbnormalStates
   }, [zoneData, tmsData, predictionData, processThresholds])
 
-  // 알림 영역 높이 체크 및 넘치는 알림 제거
+  // 알림 영역 높이 체크 및 넘치는 알림      제거
   React.useLayoutEffect(() => {
     if (!alertListRef.current || alerts.length === 0) return
 
