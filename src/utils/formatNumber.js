@@ -20,8 +20,21 @@ export function formatNumber(num) {
  * @returns {string} - 포맷팅된 문자열
  * 예: 12.3456789 → "12.35"
  */
-export function formatDecimal(num, decimals = 2) {
+export function formatDecimal(num, decimals = 1) {
   if (num === null || num === undefined || num === '-') return '-'
+
+  const str = String(num)
+
+  // E 표기법인 경우 (1.93855488E8 → 1.9)
+  if (str.includes('E') || str.includes('e')) {
+    const match = str.match(/([+-]?\d+\.?\d*)([Ee][+-]?\d+)/)
+    if (match) {
+      const mantissa = parseFloat(match[1])  // 앞부분만 추출
+      return mantissa.toFixed(decimals)  // E 표기 제거
+    }
+  }
+
+  // 일반 숫자인 경우 (15.8 → 15.8)
   return Number(num).toFixed(decimals)
 }
 
@@ -63,7 +76,7 @@ export function formatSensorValue(num) {
   if (Number.isInteger(num)) {
     return formatNumber(num)
   } else {
-    return formatDecimal(num, 2)
+    return formatDecimal(num, 1)
   }
 }
 
@@ -80,7 +93,7 @@ export function formatAccumulated(num) {
 
   if (absNum >= 1000000) {
     // 백만 이상: M 단위 (소수점 2자리)
-    return (num / 1000000).toFixed(2) + 'M'
+    return (num / 1000000).toFixed(1) + 'M'
   } else if (absNum >= 1000) {
     // 천 이상: K 단위 (소수점 1자리)
     return (num / 1000).toFixed(1) + 'K'
