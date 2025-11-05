@@ -33,7 +33,7 @@
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 6px;
-  flex: 1;
+  flex: 1.6; /* 더 눈에 띄게 증가 */
   min-height: 0;
   overflow: hidden;
 }
@@ -80,11 +80,12 @@
   gap: var(--spacing-xs);
   flex-shrink: 0;
   margin-bottom: var(--spacing-sm);
+  /* max-height 제거 - 컨텐츠에 맞게 자동 조정 */
 }
 
 .flow-item-mini {
   flex: 1;
-  padding: clamp(10px, 1.2vw, 4px) var(--spacing-md);
+  padding: 8px var(--spacing-md); /* 컨텐츠에 맞는 여유 공간 */
   background: linear-gradient(135deg, #e0f2fe 0%, #bfdbfe 100%);
   border: 2px solid var(--primary-light);
   border-radius: 6px;
@@ -95,6 +96,7 @@
   align-items: center;
   gap: var(--spacing-sm);
   min-height: 0;
+  /* max-height 제거 - 컨텐츠에 맞게 자동 조정 */
 }
 
 .flow-item-mini:hover {
@@ -103,8 +105,8 @@
 }
 
 .flow-label-mini {
-  flex: 0 0 clamp(75px, 6vw, 95px);
-  font-size: clamp(13px, 1.3vw, 18px);
+  flex: 0 0 clamp(75px, 6vw, 90px); /* 적당한 크기로 복원 */
+  font-size: clamp(13px, 1.3vw, 17px); /* 적당한 크기로 복원 */
   font-weight: 700;
   color: var(--primary-dark);
   line-height: 1.3;
@@ -113,7 +115,7 @@
 
 .flow-divider-mini {
   width: 2px;
-  height: clamp(45px, 5vh, 65px);
+  height: 45px; /* 적당한 높이로 복원 */
   background-color: var(--primary-dark);
   flex-shrink: 0;
   opacity: 0.5;
@@ -129,7 +131,7 @@
 }
 
 .flow-value-mini {
-  font-size: clamp(22px, 2.2vw, 34px);
+  font-size: clamp(20px, 2vw, 30px); /* 적당한 크기로 복원 */
   font-weight: 600;
   color: var(--primary-color);
   /* font-family: 'Courier New', monospace; */
@@ -158,7 +160,7 @@
   flex-shrink: 0;
 }
 
-/* 지별 데이터 섹션 (처리장 공종 + 테이블 통합) */
+/* 지별 데이터 섹션 (처리장 공종 + 테이블 통합) */ 
 .zone-data-section {
   background-color: var(--bg-white);
   border-radius: 8px;
@@ -169,6 +171,7 @@
   flex-direction: column;
   gap: 6px;
   min-height: 0;
+  /* max-height 제거 - 스크롤 없이 전체 테이블 표시 */
   overflow: hidden;
 }
 
@@ -185,7 +188,7 @@
 .zone-table th {
   background-color: var(--primary-color);
   color: var(--text-white);
-  padding: clamp(8px, 1vw, 4px);
+  padding: 6px; /* 컴팩트하게 */
   font-weight: 600;
   font-size: clamp(12px, 1.1vw, 20px);
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -209,7 +212,7 @@
 }
 
 .zone-table td {
-  padding: clamp(8px, 1vw, 4px);
+  padding: 6px; /* 컴팩트하게 */
   border: 1px solid var(--border-color);
   text-align: center;
   font-size: clamp(12px, 1.1vw, 20px);
@@ -371,6 +374,7 @@
   color: #334155;
   font-family: 'Segoe UI', 'Arial', sans-serif;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .prediction-limit {

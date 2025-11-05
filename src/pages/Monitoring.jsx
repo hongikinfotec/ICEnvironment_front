@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useThreshold } from '../context/ThresholdContext'
 import { monitoringAPI, predictionAPI } from '../utils/api'
-import { formatNumber, formatDecimal, formatAccumulated, formatSensorValue } from '../utils/formatNumber'
+import { formatNumber, formatDecimal, formatAccumulated, formatSensorValue } from '../utils/formatNumber' // 반올림 활성화
 import './Monitoring.css'
 
 function Monitoring() {
@@ -15,82 +15,82 @@ function Monitoring() {
   })
 
   // 방류 TMS 원본 데이터 (센서값)
-  const [rawTmsData, setRawTmsData] = useState({
-    TOC: 15.8,
-    SS: 5.1,
-    TN: 18.5,
-    TP: 0.8
-  })
+  // const [rawTmsData, setRawTmsData] = useState({
+  //   TOC: 0.0,
+  //   SS: 0.0,
+  //   TN: 0.0,
+  //   TP: 1.2611686178923354E-44
+  // })
 
   // 계산된 TMS 데이터 (임계값 기준 상태 포함)
   const [tmsData, setTmsData] = useState({
-    TOC: { value: 15.8, status: 'normal', lowerLimit: 0, upperLimit: 25 },
-    SS: { value: 5.1, status: 'normal', lowerLimit: 0, upperLimit: 10 },
-    TN: { value: 18.5, status: 'normal', lowerLimit: 0, upperLimit: 20 },
-    TP: { value: 0.8, status: 'normal', lowerLimit: 0, upperLimit: 2 }
+    TOC: { value: 0.0, status: 'normal', lowerLimit: 0, upperLimit: 25 },
+    SS: { value: 0.0, status: 'normal', lowerLimit: 0, upperLimit: 10 },
+    TN: { value: 0.0, status: 'normal', lowerLimit: 0, upperLimit: 20 },
+    TP: { value: "1.2611686178923354E-44", status: 'normal', lowerLimit: 0, upperLimit: 2 }
   })
 
   // 임계값이 변경될 때마다 TMS 상태 재계산
-  useEffect(() => {
-    setTmsData({
-      TOC: {
-        value: rawTmsData.TOC,
-        status: getEffluentStatus('toc', rawTmsData.TOC),
-        lowerLimit: effluentThresholds.toc.lower || 0,
-        upperLimit: effluentThresholds.toc.upper || 25
-      },
-      SS: {
-        value: rawTmsData.SS,
-        status: getEffluentStatus('ss', rawTmsData.SS),
-        lowerLimit: effluentThresholds.ss.lower || 0,
-        upperLimit: effluentThresholds.ss.upper || 10
-      },
-      TN: {
-        value: rawTmsData.TN,
-        status: getEffluentStatus('tn', rawTmsData.TN),
-        lowerLimit: effluentThresholds.tn.lower || 0,
-        upperLimit: effluentThresholds.tn.upper || 20
-      },
-      TP: {
-        value: rawTmsData.TP,
-        status: getEffluentStatus('tp', rawTmsData.TP),
-        lowerLimit: effluentThresholds.tp.lower || 0,
-        upperLimit: effluentThresholds.tp.upper || 2
-      }
-    })
-  }, [rawTmsData, effluentThresholds, getEffluentStatus])
+  // useEffect(() => {
+  //   setTmsData({
+  //     TOC: {
+  //       value: rawTmsData.TOC,
+  //       status: getEffluentStatus('toc', rawTmsData.TOC),
+  //       lowerLimit: effluentThresholds.toc.lower || 0,
+  //       upperLimit: effluentThresholds.toc.upper || 25
+  //     },
+  //     SS: {
+  //       value: rawTmsData.SS,
+  //       status: getEffluentStatus('ss', rawTmsData.SS),
+  //       lowerLimit: effluentThresholds.ss.lower || 0,
+  //       upperLimit: effluentThresholds.ss.upper || 10
+  //     },
+  //     TN: {
+  //       value: rawTmsData.TN,
+  //       status: getEffluentStatus('tn', rawTmsData.TN),
+  //       lowerLimit: effluentThresholds.tn.lower || 0,
+  //       upperLimit: effluentThresholds.tn.upper || 20
+  //     },
+  //     TP: {
+  //       value: rawTmsData.TP,
+  //       status: getEffluentStatus('tp', rawTmsData.TP),
+  //       lowerLimit: effluentThresholds.tp.lower || 0,
+  //       upperLimit: effluentThresholds.tp.upper || 2
+  //     }
+  //   })
+  // }, [rawTmsData, effluentThresholds, getEffluentStatus])
 
   // 5개 지 원본 데이터 (센서값만)
   const [rawZoneData, setRawZoneData] = useState([
     {
       zone: '1지',
-      anaerobic: { orp: -303.4, ph: '-' },
-      anoxic: { orp: -313.6, ph: 6.70 },
-      aerobic: { do: 5.12, ph: 6.58, mlss: 6687.3 }
+      anaerobic: { orp: -262.875, ph: '-' },
+      anoxic: { orp: -88.25, ph: 4.953375 },
+      aerobic: { do: 8.34375, ph: 6.60625, mlss: 3394.1875 }
     },
     {
       zone: '2지',
       anaerobic: { orp: '-', ph: '-' },
-      anoxic: { orp: -313.6, ph: 6.70 },
-      aerobic: { do: 5.12, ph: 6.58, mlss: 6687.3 }
+      anoxic: { orp: 199.625, ph: 3.957625 },
+      aerobic: { do: 7.775625, ph: 6.46975, mlss: '-' }
     },
     {
       zone: '3지',
       anaerobic: { orp: '-', ph: '-' },
-      anoxic: { orp: -313.6, ph: 6.70 },
-      aerobic: { do: 5.12, ph: 6.58, mlss: 6687.3 }
+      anoxic: { orp: -579.875, ph: 6.577375 },
+      aerobic: { do: 7.203125, ph: 6.512625, mlss: '-' }
     },
     {
       zone: '4지',
-      anaerobic: { orp: -303.4, ph: 7.07 },
-      anoxic: { orp: -313.6, ph: 6.70 },
-      aerobic: { do: 5.12, ph: 6.58, mlss: 6687.3 }
+      anaerobic: { orp: -91.125, ph: 6.5485 },
+      anoxic: { orp: 4.271875, ph: 6.3735 },
+      aerobic: { do: 5.388495, ph: 6.589625, mlss: 6836.5 }
     },
     {
       zone: '5지',
       anaerobic: { orp: '-', ph: '-' },
-      anoxic: { orp: -313.6, ph: 6.70 },
-      aerobic: { do: 5.12, ph: 6.58, mlss: 6687.3 }
+      anoxic: { orp: -153.5, ph: 6.713875 },
+      aerobic: { do: 7.798125, ph: 6.764625, mlss: '-' }
     }
   ])
 
@@ -126,148 +126,150 @@ function Monitoring() {
   }, [rawZoneData, processThresholds, getProcessStatus])
 
   // AI 예측 방류수질 원본 데이터
-  const [rawPredictionData, setRawPredictionData] = useState({
-    TOC: { current: 15.8, predicted: 16.2 },
-    SS: { current: 5.1, predicted: 5.8 },
-    TN: { current: 18.5, predicted: 19.2 },
-    TP: { current: 0.8, predicted: 1.0 }
-  })
+  // const [rawPredictionData, setRawPredictionData] = useState({
+  //   TOC: { current: 15.8, predicted: 16.2 },
+  //   SS: { current: 5.1, predicted: 5.8 },
+  //   TN: { current: 18.5, predicted: 19.2 },
+  //   TP: { current: 0.8, predicted: 1.0 }
+  // })
 
   // 계산된 예측 데이터 (임계값 기준 상태 포함)
   const [predictionData, setPredictionData] = useState([
-    { name: 'TOC', value: 15.8, nextValue: 16.2, unit: 'mg/L', lowerLimit: 0, upperLimit: 25, status: 'normal' },
-    { name: 'SS', value: 5.1, nextValue: 5.8, unit: 'mg/L', lowerLimit: 0, upperLimit: 10, status: 'normal' },
-    { name: 'T-N', value: 18.5, nextValue: 19.2, unit: 'mg/L', lowerLimit: 0, upperLimit: 20, status: 'normal' },
-    { name: 'T-P', value: 0.8, nextValue: 1.0, unit: 'mg/L', lowerLimit: 0, upperLimit: 2, status: 'normal' }
+    { name: 'TOC', value: 15.8, nextValue: "1.2611686178923354E-44", unit: 'mg/L', lowerLimit: 0, upperLimit: 25, status: 'normal' },
+    { name: 'SS', value: 5.1, nextValue: "1.2611686178923354E-44", unit: 'mg/L', lowerLimit: 0, upperLimit: 10, status: 'normal' },
+    { name: 'T-N', value: 18.5, nextValue: 0.0, unit: 'mg/L', lowerLimit: 0, upperLimit: 20, status: 'normal' },
+    { name: 'T-P', value: 0.8, nextValue: 0.0, unit: 'mg/L', lowerLimit: 0, upperLimit: 2, status: 'normal' }
   ])
 
   // 임계값이 변경될 때마다 예측 데이터 상태 재계산
-  useEffect(() => {
-    setPredictionData([
-      {
-        name: 'TOC',
-        value: rawPredictionData.TOC.current,
-        nextValue: rawPredictionData.TOC.predicted,
-        unit: 'mg/L',
-        lowerLimit: effluentThresholds.toc.lower || 0,
-        upperLimit: effluentThresholds.toc.upper || 25,
-        status: getEffluentStatus('toc', rawPredictionData.TOC.predicted) // 예측값 기준으로 상태 판단
-      },
-      {
-        name: 'SS',
-        value: rawPredictionData.SS.current,
-        nextValue: rawPredictionData.SS.predicted,
-        unit: 'mg/L',
-        lowerLimit: effluentThresholds.ss.lower || 0,
-        upperLimit: effluentThresholds.ss.upper || 10,
-        status: getEffluentStatus('ss', rawPredictionData.SS.predicted)
-      },
-      {
-        name: 'T-N',
-        value: rawPredictionData.TN.current,
-        nextValue: rawPredictionData.TN.predicted,
-        unit: 'mg/L',
-        lowerLimit: effluentThresholds.tn.lower || 0,
-        upperLimit: effluentThresholds.tn.upper || 20,
-        status: getEffluentStatus('tn', rawPredictionData.TN.predicted)
-      },
-      {
-        name: 'T-P',
-        value: rawPredictionData.TP.current,
-        nextValue: rawPredictionData.TP.predicted,
-        unit: 'mg/L',
-        lowerLimit: effluentThresholds.tp.lower || 0,
-        upperLimit: effluentThresholds.tp.upper || 2,
-        status: getEffluentStatus('tp', rawPredictionData.TP.predicted)
-      }
-    ])
-  }, [rawPredictionData, effluentThresholds, getEffluentStatus])
+  // useEffect(() => {
+  //   setPredictionData([
+  //     {
+  //       name: 'TOC',
+  //       value: rawPredictionData.TOC.current,
+  //       nextValue: rawPredictionData.TOC.predicted,
+  //       unit: 'mg/L',
+  //       lowerLimit: effluentThresholds.toc.lower || 0,
+  //       upperLimit: effluentThresholds.toc.upper || 25,
+  //       status: getEffluentStatus('toc', rawPredictionData.TOC.predicted) // 예측값 기준으로 상태 판단
+  //     },
+  //     {
+  //       name: 'SS',
+  //       value: rawPredictionData.SS.current,
+  //       nextValue: rawPredictionData.SS.predicted,
+  //       unit: 'mg/L',
+  //       lowerLimit: effluentThresholds.ss.lower || 0,
+  //       upperLimit: effluentThresholds.ss.upper || 10,
+  //       status: getEffluentStatus('ss', rawPredictionData.SS.predicted)
+  //     },
+  //     {
+  //       name: 'T-N',
+  //       value: rawPredictionData.TN.current,
+  //       nextValue: rawPredictionData.TN.predicted,
+  //       unit: 'mg/L',
+  //       lowerLimit: effluentThresholds.tn.lower || 0,
+  //       upperLimit: effluentThresholds.tn.upper || 20,
+  //       status: getEffluentStatus('tn', rawPredictionData.TN.predicted)
+  //     },
+  //     {
+  //       name: 'T-P',
+  //       value: rawPredictionData.TP.current,
+  //       nextValue: rawPredictionData.TP.predicted,
+  //       unit: 'mg/L',
+  //       lowerLimit: effluentThresholds.tp.lower || 0,
+  //       upperLimit: effluentThresholds.tp.upper || 2,
+  //       status: getEffluentStatus('tp', rawPredictionData.TP.predicted)
+  //     }
+  //   ])
+  // }, [rawPredictionData, effluentThresholds, getEffluentStatus])
 
+
+  //연동 일시적 중단
   // 백엔드 API로부터 실시간 데이터 가져오기
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // 1. 처리장 공종 현황 가져오기
-        const processStatus = await monitoringAPI.getProcessStatus()
-        console.log('🔍 API 응답 - 처리장 공종:', processStatus)
-        setProcessData({
-          inflow: {
-            total: processStatus.inflow.total,
-            volume: processStatus.inflow.accumulated
-          },
-          biologicalInflow: {
-            total: processStatus.biologicalInflow.total,
-            volume: processStatus.biologicalInflow.accumulated
-          },
-          effluent: {
-            total: processStatus.effluent.total,
-            volume: processStatus.effluent.accumulated
-          }
-        })
-        console.log('✅ 데이터 업데이트 완료')
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       // 1. 처리장 공종 현황 가져오기
+  //       const processStatus = await monitoringAPI.getProcessStatus()
+  //       console.log('🔍 API 응답 - 처리장 공종:', processStatus)
+  //       setProcessData({
+  //         inflow: {
+  //           total: processStatus.inflow.total,
+  //           volume: processStatus.inflow.accumulated
+  //         },
+  //         biologicalInflow: {
+  //           total: processStatus.biologicalInflow.total,
+  //           volume: processStatus.biologicalInflow.accumulated
+  //         },
+  //         effluent: {
+  //           total: processStatus.effluent.total,
+  //           volume: processStatus.effluent.accumulated
+  //         }
+  //       })
+  //       console.log('✅ 데이터 업데이트 완료')
 
-        // 2. 5개 지별 센서 데이터 가져오기
-        const zoneDataFromAPI = await monitoringAPI.getZoneData()
-        console.log('🔍 API 응답 - 지별 센서:', zoneDataFromAPI)
-        setRawZoneData(zoneDataFromAPI.zones.map(zone => ({
-          zone: zone.zone,
-          anaerobic: {
-            orp: zone.anaerobic.orp || '-',
-            ph: zone.anaerobic.ph || '-'
-          },
-          anoxic: {
-            orp: zone.anoxic.orp || '-',
-            ph: zone.anoxic.ph || '-'
-          },
-          aerobic: {
-            do: zone.aerobic.do || '-',
-            ph: zone.aerobic.ph || '-',
-            mlss: zone.aerobic.mlss || '-'
-          }
-        })))
+  //       // 2. 5개 지별 센서 데이터 가져오기
+  //       const zoneDataFromAPI = await monitoringAPI.getZoneData()
+  //       console.log('🔍 API 응답 - 지별 센서:', zoneDataFromAPI)
+  //       setRawZoneData(zoneDataFromAPI.zones.map(zone => ({
+  //         zone: zone.zone,
+  //         anaerobic: {
+  //           orp: zone.anaerobic.orp || '-',
+  //           ph: zone.anaerobic.ph || '-'
+  //         },
+  //         anoxic: {
+  //           orp: zone.anoxic.orp || '-',
+  //           ph: zone.anoxic.ph || '-'
+  //         },
+  //         aerobic: {
+  //           do: zone.aerobic.do || '-',
+  //           ph: zone.aerobic.ph || '-',
+  //           mlss: zone.aerobic.mlss || '-'
+  //         }
+  //       })))
 
-        // 3. 방류 TMS 데이터 가져오기
-        const tmsDataFromAPI = await monitoringAPI.getTMS()
-        console.log('🔍 API 응답 - TMS:', tmsDataFromAPI)
-        setRawTmsData({
-          TOC: tmsDataFromAPI.parameters.TOC.value,
-          SS: tmsDataFromAPI.parameters.SS.value,
-          TN: tmsDataFromAPI.parameters.TN.value,
-          TP: tmsDataFromAPI.parameters.TP.value
-        })
+  //       // 3. 방류 TMS 데이터 가져오기
+  //       const tmsDataFromAPI = await monitoringAPI.getTMS()
+  //       console.log('🔍 API 응답 - TMS:', tmsDataFromAPI)
+  //       setRawTmsData({
+  //         TOC: tmsDataFromAPI.parameters.TOC.value,
+  //         SS: tmsDataFromAPI.parameters.SS.value,
+  //         TN: tmsDataFromAPI.parameters.TN.value,
+  //         TP: tmsDataFromAPI.parameters.TP.value
+  //       })
 
-        // 4. AI 예측 데이터 가져오기
-        const predictionFromAPI = await predictionAPI.getForecast()
-        console.log('🔍 API 응답 - 예측:', predictionFromAPI)
+  //       // 4. AI 예측 데이터 가져오기
+  //       const predictionFromAPI = await predictionAPI.getForecast()
+  //       console.log('🔍 API 응답 - 예측:', predictionFromAPI)
 
-        // predictions 배열을 객체로 변환
-        const predMap = {}
-        predictionFromAPI.predictions.forEach(p => {
-          predMap[p.parameter] = { current: p.current, predicted: p.predicted }
-        })
+  //       // predictions 배열을 객체로 변환
+  //       const predMap = {}
+  //       predictionFromAPI.predictions.forEach(p => {
+  //         predMap[p.parameter] = { current: p.current, predicted: p.predicted }
+  //       })
 
-        setRawPredictionData({
-          TOC: predMap['TOC'] || { current: tmsDataFromAPI.parameters.TOC.value, predicted: tmsDataFromAPI.parameters.TOC.value },
-          SS: predMap['SS'] || { current: tmsDataFromAPI.parameters.SS.value, predicted: tmsDataFromAPI.parameters.SS.value },
-          TN: predMap['T-N'] || { current: tmsDataFromAPI.parameters.TN.value, predicted: tmsDataFromAPI.parameters.TN.value },
-          TP: predMap['T-P'] || { current: tmsDataFromAPI.parameters.TP.value, predicted: tmsDataFromAPI.parameters.TP.value }
-        })
+  //       setRawPredictionData({
+  //         TOC: predMap['TOC'] || { current: tmsDataFromAPI.parameters.TOC.value, predicted: tmsDataFromAPI.parameters.TOC.value },
+  //         SS: predMap['SS'] || { current: tmsDataFromAPI.parameters.SS.value, predicted: tmsDataFromAPI.parameters.SS.value },
+  //         TN: predMap['T-N'] || { current: tmsDataFromAPI.parameters.TN.value, predicted: tmsDataFromAPI.parameters.TN.value },
+  //         TP: predMap['T-P'] || { current: tmsDataFromAPI.parameters.TP.value, predicted: tmsDataFromAPI.parameters.TP.value }
+  //       })
 
-      } catch (error) {
-        console.error('❌ API 호출 오류:', error)
-        console.error('에러 상세:', error.response?.data || error.message)
-      }
-    }
+  //     } catch (error) {
+  //       console.error('❌ API 호출 오류:', error)
+  //       console.error('에러 상세:', error.response?.data || error.message)
+  //     }
+  //   }
 
-    // 최초 데이터 로드
-    fetchData()
+  //   // 최초 데이터 로드
+  //   fetchData()
 
-    // 5초마다 데이터 갱신
-    const interval = setInterval(fetchData, 5000)
+  //   // 5초마다 데이터 갱신
+  //   const interval = setInterval(fetchData, 5000)
 
-    // 컴포넌트 언마운트 시 interval 정리
-    return () => clearInterval(interval)
-  }, []) // 빈 배열 = 마운트 시 한 번만 실행
+  //   // 컴포넌트 언마운트 시 interval 정리
+  //   return () => clearInterval(interval)
+  // }, []) // 빈 배열 = 마운트 시 한 번만 실행
 
   // 실시간 알림 (누적 방식 - 영역 기준)
   const [alerts, setAlerts] = useState([])
@@ -450,8 +452,8 @@ function Monitoring() {
                 <div className="flow-label-mini">유입<br/>하수량</div>
                 <div className="flow-divider-mini"></div>
                 <div className="flow-data-mini">
-                  <div className="flow-value-mini">{formatNumber(processData.inflow.total)} <span className="flow-unit">㎥/일</span></div>
-                  <div className="flow-subvalue-mini">{formatAccumulated(processData.inflow.volume)} ㎥ (금일적산)</div>
+                  <div className="flow-value-mini">{formatDecimal(0.0, 1)} <span className="flow-unit">㎥/일</span></div>
+                  <div className="flow-subvalue-mini">{formatDecimal("1.93855488E8", 1)} ㎥ (금일적산)</div>
                 </div>
               </div>
 
@@ -461,8 +463,8 @@ function Monitoring() {
                 <div className="flow-label-mini">생물반응조<br/>유입량</div>
                 <div className="flow-divider-mini"></div>
                 <div className="flow-data-mini">
-                  <div className="flow-value-mini">{formatNumber(processData.biologicalInflow.total)} <span className="flow-unit">㎥/일</span></div>
-                  <div className="flow-subvalue-mini">{formatAccumulated(processData.biologicalInflow.volume)} ㎥ (금일적산)</div>
+                  <div className="flow-value-mini">{formatDecimal(0.0, 1)} <span className="flow-unit">㎥/일</span></div>
+                  <div className="flow-subvalue-mini">{formatDecimal("2.547386E7", 1)} ㎥ (금일적산)</div>
                 </div>
               </div>
 
@@ -472,8 +474,8 @@ function Monitoring() {
                 <div className="flow-label-mini">방류<br/>유량</div>
                 <div className="flow-divider-mini"></div>
                 <div className="flow-data-mini">
-                  <div className="flow-value-mini">{formatNumber(processData.effluent.total)} <span className="flow-unit">㎥/일</span></div>
-                  <div className="flow-subvalue-mini">{formatAccumulated(processData.effluent.volume)} ㎥ (금일적산)</div>
+                  <div className="flow-value-mini">{formatDecimal(0.3125, 1)} <span className="flow-unit">㎥/일</span></div>
+                  <div className="flow-subvalue-mini">{formatDecimal(0.0, 1)} ㎥ (금일적산)</div>
                 </div>
               </div>
             </div>
@@ -553,7 +555,8 @@ function Monitoring() {
                     }}>
                       <div className="prediction-name" style={isAbnormal ? { color: statusColor } : undefined}>{item.name}</div>
                       <div className="prediction-center">
-                        <div className="prediction-value" style={isAbnormal ? { color: statusColor } : undefined}>{formatDecimal(item.nextValue, 1)} {item.unit}</div>
+                        {/* <div className="prediction-value" style={isAbnormal ? { color: statusColor } : undefined}>{formatDecimal(item.nextValue, 1)} {item.unit}</div> */}
+                        <div className="prediction-value" style={{color: isAbnormal ? statusColor : undefined}}>{formatDecimal(item.nextValue, 1)} {item.unit}</div>
                         <div className="prediction-limit" style={isAbnormal ? { color: statusColor } : undefined}>{formatDecimal(item.lowerLimit, 1)}~{formatDecimal(item.upperLimit, 1)} {item.unit}</div>
                       </div>
                       <div className="prediction-status" style={{ color: getTableStatusColor(item.status) }}>

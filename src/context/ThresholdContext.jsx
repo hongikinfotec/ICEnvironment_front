@@ -14,17 +14,17 @@ export const ThresholdProvider = ({ children }) => {
   // 기본 임계값 설정 (환경부 기준)
   const defaultProcessSettings = {
     anaerobic: {
-      orp: { upper: -200, lower: -400 },
-      ph: { upper: 7.5, lower: 6.5 }
+      orp: { upper: -350, lower: -250 },
+      ph: { upper: 7.0, lower: 6.5 }
     },
     anoxic: {
-      orp: { upper: -200, lower: -400 },
-      ph: { upper: 7.5, lower: 6.5 }
+      orp: { upper: -200, lower: -100 },
+      ph: { upper: 7.0, lower: 6.5 }
     },
     aerobic: {
-      do: { upper: 6.0, lower: 2.0 },
-      ph: { upper: 7.5, lower: 6.0 },
-      mlss: { upper: 7000, lower: 3000 }
+      do: { upper: 5.0, lower: 3.0 },
+      ph: { upper: 7.0, lower: 6.5 },
+      mlss: { upper: 9000, lower: 6000 }
     }
   }
 
